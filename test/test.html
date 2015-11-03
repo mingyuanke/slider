@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../src/cSlider.css">
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../src/cSlider.js"></script>
+    <style>
+        #div1{
+            height: 400px;
+            width: 400px;
+            border: 1px solid #909090;
+        }
+    </style>
+</head>
+<body>
+<div id="div1" class="slider-container">
+    <div class="slider-context">
+        <img src="../image/test.jpg"/>
+        <img src="../image/test.jpg" id="img2" style="display: none"/>
+    </div>
+</div>
+<br/>
+<input type="button" id="changeBtn" value="改变大小"/>
+<input type="button" id="show" value="显示"/>
+<div id="div2"></div>
+<script>
+    $(document).ready(function(){
+        $("#div1").CSlider({va:1});
+        $("#changeBtn").on("click",function(){
+            $("#div1").css("height","500px")
+        })
+        $("#show").on("click",function(){
+            $("#img2").css("display","block");
+        })
+    })
+
+</script>
+</body>
+</html>
