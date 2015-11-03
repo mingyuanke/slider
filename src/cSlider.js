@@ -112,8 +112,7 @@
                     sliderV = null;
                     sliderH = null;
                     $(self).removeClass("slider-active")
-                });
-                $('html').mousemove(function (event) {
+                }).mousemove(function (event) {
                     event.preventDefault();
                     event.stopPropagation();
                     if (clickedY == "YES" && sliderV != null) {
@@ -211,12 +210,12 @@
             $(self).append(guideWay);
             self.addEventListener("DOMMouseScroll", function (event) {
                 event.preventDefault();
-                vChange(self, -event.detail * 40)
+                vChange(self, -event.detail * 40);
                 refreshV(self);
             });
             self.addEventListener("mousewheel", function (event) {
                 event.preventDefault();
-                vChange(self, event.wheelDelta)
+                vChange(self, event.wheelDelta);
                 refreshV(self);
             });
 
