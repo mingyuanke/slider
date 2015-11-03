@@ -22,15 +22,21 @@
     </div>
 </div>
 <br/>
-<input type="button" id="changeBtn" value="改变大小"/>
-<input type="button" id="show" value="显示"/>
+<form>
+    <label>宽度：</label><input type="text" id="wid" placeholder="400"><br/>
+    <label>高度：</label><input type="text" id="hei" placeholder="400"><br/><br/>
+    <input type="button" id="changeBtn" value="改变大小"/>
+    <input type="button" id="show" value="显示"/>
+</form>
+
 <div id="div2"></div>
 <script>
     $(document).ready(function(){
         $("#div1").CSlider();
         $("#changeBtn").on("click",function(){
-            $("#div1").css("height","500px")
-        })
+            $("#div1").css("height",$("#hei").val());
+            $("#div1").css("width",$("#wid").val())
+        });
         $("#show").on("click",function(){
             $("#img2").css("display","block");
         })
