@@ -145,7 +145,7 @@
                         sliderLeft(sliderH, difX);
                         phX = mouseX;
                     }
-                })
+                });
                 $(self).mouseenter(function (event) {
                     $(event.currentTarget).attr("tabindex", 0);
                     $(event.currentTarget).focus();
