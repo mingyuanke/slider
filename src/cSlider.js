@@ -81,7 +81,6 @@
                     }
                     var contextHeight = $ele.find(".slider-context").first().innerHeight();
                     var containerHeight = $ele.innerHeight();
-                    console.log($ele);
                     var contextTop = $ele.find(".slider-context").first().position().top;
                     if (contextTop < containerHeight - contextHeight && contextHeight >= containerHeight) {
                         $ele.find(".slider-context").first().css("top", (containerHeight - contextHeight) + "px")
@@ -116,11 +115,6 @@
                 });
             })
 
-        },
-        test: function () {
-            return this.each(function () {
-                console.log(this.options)
-            })
         }
     };
     var defaultOption = {
