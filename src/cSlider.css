@@ -1,6 +1,10 @@
 .slider-container {
     position: relative;
     overflow: hidden;
+    -webkit-transition:  0.2s linear;
+    -moz-transition: 0.2s linear;
+    -o-transition:  0.2s linear;
+    transition:  0.2s linear;
 }
 
 .slider-context {
@@ -71,23 +75,23 @@
     -o-transition: width 0.3s linear;
     transition: width 0.3s linear;
 }
-.slider-container:hover .V-slider, .slider-container:hover .H-slider{
-    border: 2px outset rgba(87, 87, 87, 0.8);
-    background-color: rgba(97, 97, 97, 0.9);
-}
-
-.slider-container:hover .guide-way,.slider-container:hover .guide-way-horizontal {
-    border: 2px groove rgba(225, 225, 225, 0.4);
-    background-color: rgba(225, 225, 225, 0.3);
-}
-
 .slider-active .V-slider,.slider-active .H-slider {
     border: 2px outset rgba(87, 87, 87, 0.8);
     background-color: rgba(97, 97, 97, 0.9);
 }
 
+
 .slider-active .guide-way,.slider-active .guide-way-horizontal {
     border: 2px groove rgba(225, 225, 225, 0.4);
-    background-color: rgba(225, 225, 225, 0.7);
+    background-color: rgba(225, 225, 225, 0.3);
+}
+
+.slider-active-move .guide-active {
+    border: 2px groove rgba(225, 225, 225, 0.7);
+    background-color: rgba(225, 225, 225, 1);
+}
+.slider-active-move .V-slider,.slider-active-move .H-slider{
+    border: 2px outset rgba(87, 87, 87, 0.8);
+    background-color: rgba(97, 97, 97, 0.9);
 }
 

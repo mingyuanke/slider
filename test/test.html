@@ -32,10 +32,14 @@
 <div id="div2"></div>
 <script>
     $(document).ready(function(){
-        $("#div1").CSlider();
+        $("#div1").CSlider({
+            Vertical: true,
+            Horizontal:true,
+            keyMode:2,
+            sliderSpeed:2
+        });
         $("#changeBtn").on("click",function(){
-            $("#div1").css("height",$("#hei").val());
-            $("#div1").css("width",$("#wid").val())
+            $("#div1").css("height",$("#hei").val()).css("width",$("#wid").val())
         });
         $("#show").on("click",function(){
             $("#img2").css("display","block");

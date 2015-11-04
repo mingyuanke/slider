@@ -69,11 +69,12 @@
     var phX = null;
     var sliderV = null;
     var sliderH = null;
+    var isKeyDown=false;
     "use strict";
     var cSlider = {
         init: function (options) {
             return this.each(function () {
-                this.options = $.extend(options, defaultOption, {});
+                this.options = $.extend(defaultOption,options, {});
                 var self = this;
                 if (self.options.Vertical) {
                     createVertical(self);
@@ -106,14 +107,16 @@
                     clickedY = "YES";
                     pX = event.pageX;
                     sliderV = event.target;
-                    $(self).addClass("slider-active")
+                    $(self).addClass("slider-active-move");
+                    $(event.target).parent().addClass("guide-active")
 
                 });
                 $(".H-slider").mousedown(function () {
                     clickedX = "YES";
                     phY = event.pageY;
                     sliderH = event.target;
-                    $(self).addClass("slider-active");
+                    $(self).addClass("slider-active-move");
+                    $(event.target).parent().addClass("guide-active")
 
                 });
                 $("html").mouseup(function () {
@@ -123,7 +126,9 @@
                     pY = null;
                     sliderV = null;
                     sliderH = null;
-                    $(self).removeClass("slider-active")
+                    $(self).removeClass("slider-active-move");
+                    $(self).removeClass("slider-active");
+                    $(self).find(".guide-active").removeClass("guide-active");
                 }).mousemove(function (event) {
                     event.preventDefault();
                     event.stopPropagation();
@@ -134,7 +139,9 @@
                             clickedY = "NO";
                             pX = null;
                             sliderV = null;
+                            $(self).removeClass("slider-active-move");
                             $(self).removeClass("slider-active");
+                            $(self).find(".guide-active").removeClass("guide-active");
                             return
                         }
                         pY = pY == null ? may : pY;
@@ -159,20 +166,58 @@
                     }
                 });
                 $(self).mouseenter(function (event) {
+                    $(event.currentTarget).addClass("slider-active");
                     $(event.currentTarget).attr("tabindex", 0);
                     $(event.currentTarget).focus();
-                    $(event.currentTarget).keydown(function (event) {
-                        if (event.keyCode == 37) {
-                            HChange($(event.currentTarget), $(event.currentTarget).innerWidth());
-                            refreshH($(event.currentTarget));
-                            return false;
-                        }
-                        else if (event.keyCode == 39) {
-                            HChange($(event.currentTarget), -$(event.currentTarget).innerWidth());
-                            refreshH($(event.currentTarget));
-                            return false;
-                        }
-                    })
+                    if(self.options.keyMode == 1){
+                        $(event.currentTarget).keydown(function (event) {
+                            event.preventDefault();
+                            var speed=self.options.sliderSpeed;
+                            if(event.keyCode == 38){
+                                vChange($(event.currentTarget),speed);
+                                refreshV($(event.currentTarget))
+                            }
+                            else if(event.keyCode == 40)
+                            {
+                                vChange($(event.currentTarget),-speed);
+                                refreshV($(event.currentTarget))
+                            }
+                            else if (event.keyCode == 37) {
+                                HChange($(event.currentTarget), speed);
+                                refreshH($(event.currentTarget));
+                            }
+                            else if (event.keyCode == 39) {
+                                HChange($(event.currentTarget), -speed);
+                                refreshH($(event.currentTarget));
+                            }
+                        })
+                    }
+                    else if(self.options.keyMode == 2){
+                        $(event.currentTarget).keydown(function (event) {
+                            event.preventDefault();
+                            if(isKeyDown)
+                            {
+                                return
+                            }
+                            if (event.keyCode == 37) {
+                                HChange($(event.currentTarget), $(event.currentTarget).innerWidth());
+                                refreshH($(event.currentTarget));
+                                isKeyDown=true
+                            }
+                            else if (event.keyCode == 39) {
+                                HChange($(event.currentTarget), -$(event.currentTarget).innerWidth());
+                                refreshH($(event.currentTarget));
+                                isKeyDown=true
+                            }
+                        }).keyup(function(){
+                            isKeyDown=false
+                        })
+                    }
+
+                }).mouseleave(function(){
+                    if(sliderH==null&&sliderV==null){
+                        $(event.currentTarget).removeClass("slider-active");
+                    }
                 });
             })
 
@@ -181,7 +226,9 @@
     var defaultOption = {
         Vertical: true,
         Horizontal: true,
-        width: 5
+        width: 5,
+        keyMode:1,
+        sliderSpeed:2
     };
 
     function createHorizontal(self) {
