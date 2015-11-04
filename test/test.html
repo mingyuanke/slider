@@ -27,6 +27,7 @@
     <label>高度：</label><input type="text" id="hei" placeholder="400"><br/><br/>
     <input type="button" id="changeBtn" value="改变大小"/>
     <input type="button" id="show" value="显示"/>
+    <input type="button" id="changeSpeed" value="修改速度"/>
 </form>
 
 <div id="div2"></div>
@@ -35,7 +36,7 @@
         $("#div1").CSlider({
             Vertical: true,
             Horizontal:true,
-            keyMode:2,
+            keyMode:1,
             sliderSpeed:2
         });
         $("#changeBtn").on("click",function(){
@@ -43,6 +44,9 @@
         });
         $("#show").on("click",function(){
             $("#img2").css("display","block");
+        })
+        $("#changeSpeed").on("click",function(){
+            $("#div1").CSlider("changeSpeed",15);
         })
     })
 

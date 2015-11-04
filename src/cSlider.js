@@ -69,12 +69,12 @@
     var phX = null;
     var sliderV = null;
     var sliderH = null;
-    var isKeyDown=false;
+    var isKeyDown = false;
     "use strict";
     var cSlider = {
         init: function (options) {
             return this.each(function () {
-                this.options = $.extend(defaultOption,options, {});
+                this.options = $.extend(defaultOption, options, {});
                 var self = this;
                 if (self.options.Vertical) {
                     createVertical(self);
@@ -168,17 +168,16 @@
                     $(event.currentTarget).addClass("slider-active");
                     $(event.currentTarget).attr("tabindex", 0);
                     $(event.currentTarget).focus();
-                    if(self.options.keyMode == 1){
+                    if (self.options.keyMode == 1) {
                         $(event.currentTarget).keydown(function (event) {
                             event.preventDefault();
-                            var speed=self.options.sliderSpeed;
-                            if(event.keyCode == 38){
-                                vChange($(event.currentTarget),speed);
+                            var speed = self.options.sliderSpeed;
+                            if (event.keyCode == 38) {
+                                vChange($(event.currentTarget), speed);
                                 refreshV($(event.currentTarget))
                             }
-                            else if(event.keyCode == 40)
-                            {
-                                vChange($(event.currentTarget),-speed);
+                            else if (event.keyCode == 40) {
+                                vChange($(event.currentTarget), -speed);
                                 refreshV($(event.currentTarget))
                             }
                             else if (event.keyCode == 37) {
@@ -191,43 +190,49 @@
                             }
                         })
                     }
-                    else if(self.options.keyMode == 2){
+                    else if (self.options.keyMode == 2) {
                         $(event.currentTarget).keydown(function (event) {
                             event.preventDefault();
-                            if(isKeyDown)
-                            {
+                            if (isKeyDown) {
                                 return
                             }
                             if (event.keyCode == 37) {
                                 HChange($(event.currentTarget), $(event.currentTarget).innerWidth());
                                 refreshH($(event.currentTarget));
-                                isKeyDown=true
+                                isKeyDown = true
                             }
                             else if (event.keyCode == 39) {
                                 HChange($(event.currentTarget), -$(event.currentTarget).innerWidth());
                                 refreshH($(event.currentTarget));
-                                isKeyDown=true
+                                isKeyDown = true
                             }
-                        }).keyup(function(){
-                            isKeyDown=false
+                        }).keyup(function () {
+                            isKeyDown = false
                         })
                     }
 
-                }).mouseleave(function(){
-                    if(sliderH==null&&sliderV==null){
+                }).mouseleave(function () {
+                    if (sliderH == null && sliderV == null) {
                         $(event.currentTarget).removeClass("slider-active");
                     }
                 });
             })
 
+        },
+        changeSpeed: function (newSpeed) {
+            return this.each(function () {
+                if (typeof newSpeed == 'number') {
+                    this.options.sliderSpeed = newSpeed;
+                }
+            })
         }
     };
     var defaultOption = {
         Vertical: true,
         Horizontal: true,
         width: 5,
-        keyMode:1,
-        sliderSpeed:2
+        keyMode: 1,
+        sliderSpeed: 2
     };
 
     function createHorizontal(self) {
