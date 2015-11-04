@@ -75,20 +75,32 @@
             return this.each(function () {
                 this.options = $.extend(options, defaultOption, {});
                 var self = this;
-                createVertical(self);
-                createHorizontal(self);
+                if (self.options.Vertical) {
+                    createVertical(self);
+                }
+                if (self.options.Horizontal) {
+                    createHorizontal(self);
+                }
                 $(self).resize(function (event) {
                     if ($(event.target).attr("class").match("slider-container")) {
-                        createVertical(event.target);
-                        createHorizontal(event.target)
-                        refreshV(event.target);
-                        refreshH(event.target);
+                        if (self.options.Vertical) {
+                            createVertical(event.target);
+                            refreshV(event.target);
+                        }
+                        if (self.options.Horizontal) {
+                            createHorizontal(event.target);
+                            refreshH(event.target);
+                        }
                     }
 
                 });
-                $(self).find(".slider-context").first().resize(function (event) {
-                    refreshV(self);
-                    refreshH(self);
+                $(self).find(".slider-context").first().resize(function () {
+                    if (self.options.Vertical) {
+                        refreshV(self);
+                    }
+                    if (self.options.Horizontal) {
+                        refreshH(self);
+                    }
                 });
                 $(".V-slider").mousedown(function (event) {
                     clickedY = "YES";
