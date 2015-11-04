@@ -109,9 +109,8 @@
                     sliderV = event.target;
                     $(self).addClass("slider-active-move");
                     $(event.target).parent().addClass("guide-active")
-
                 });
-                $(".H-slider").mousedown(function () {
+                $(".H-slider").mousedown(function (event) {
                     clickedX = "YES";
                     phY = event.pageY;
                     sliderH = event.target;
